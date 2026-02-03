@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Created</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/header :: headerFragment}"></header>
+
+<main class="main-content">
+
+    <div class="success-frame" role="alert">
+        <p class="success-title">Teacher created successfully</p>
+
+        <p class="success-label" th:text="${teacherReadOnlyDTO.uuid}"></p>
+        </div>
+    </div>
+
+    <div class="actions">
+        <a class="btn" th:href="@{/teachers/insert}">Create another teacher</a>
+        <a class="btn" th:href="@{/teachers}">Back to list</a>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+/* Define CSS variables */
+:root {
+    --green-color: #006736; /* Green */
+    --green-color-hover: #218838; /* Darker Green */
+    --light-color: #e8e8f2; /* Light Background */
+    --dark-color: #343a40; /* Dark Text */
+    --dark-blue: #3b3b97;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    padding: 20px;
+    text-align: center;
+    min-height: 70vh;
+}
+
+.custom-button-green {
+    background-color: var(--green-color);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline from links */
+    display: inline-block; /* Allows padding to work correctly on <a> */
+}
+
+.custom-button-green:hover {
+    background-color: var(--green-color-hover);
+}
+
+/*Success message*/
+
+.success-frame {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid #2e7d32;        /* strong green */
+    background-color: #1b5e20;        /* green background */
+    color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 60vw;
+    min-height: 60vh;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.success-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.success-label {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+}
+
+.success-uuid {
+    font-family: monospace;
+    font-size: 1.4rem;
+    font-weight: bold;
+    padding: 1rem;
+    background-color: white;
+    border: 2px dashed #66bb6a;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.min-height-100 {
+    min-height: 100px;
+}

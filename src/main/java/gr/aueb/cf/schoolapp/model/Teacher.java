@@ -1,11 +1,13 @@
 package gr.aueb.cf.schoolapp.model;
 
+import gr.aueb.cf.schoolapp.model.static_data.Region;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -29,8 +31,23 @@ public class Teacher extends AbstractEntity {
     private String firstname;
     private String lastname;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "region_id")
+    private Region region;
+
     @PrePersist
     public void initializeUUID() {
         this.uuid = UUID.randomUUID();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Teacher teacher)) return false;
+        return Objects.equals(getUuid(), teacher.getUuid());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getUuid());
     }
 }

@@ -72,11 +72,11 @@ public class Role {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Role role)) return false;
-        return Objects.equals(getId(), role.getId());
+        return Objects.equals(getName(), role.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(getName());
     }
 }

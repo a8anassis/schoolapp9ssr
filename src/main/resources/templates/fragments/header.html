@@ -9,10 +9,20 @@
             </a>
             <span class="title">Coding Factory - Education Reinvented</span>
         </div>
-<!--        <div class="login-name">-->
-<!--            <span sec:authorize="isAuthenticated()" th:text="${#authentication.name}"></span>-->
+        <div class="login-name">
+            <span sec:authorize="isAuthenticated()" th:text="${#authentication.name}"></span>
+
+            <form sec:authorize="isAuthenticated()"
+                  th:action="@{/logout}"
+                  method="post"
+                  style="display: inline"
+            >
+                <button type="submit" class="log-out" style="background: none; border: none; padding: 0; cursor: pointer">
+                    Έξοδος
+                </button>
+            </form>
 <!--            <a class="log-out" sec:authorize="isAuthenticated()" th:href="@{/logout}" >Έξοδος</a>-->
-<!--        </div>-->
+        </div>
     </div>
     <div class="line"></div>
 </header>

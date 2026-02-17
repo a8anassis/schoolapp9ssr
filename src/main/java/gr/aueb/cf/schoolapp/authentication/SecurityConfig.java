@@ -1,6 +1,7 @@
 package gr.aueb.cf.schoolapp.authentication;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,6 +12,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration              // create a bean from method
 @RequiredArgsConstructor    // DI
@@ -18,11 +21,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity          // Filter security
 public class SecurityConfig {
 
+    private final AuthenticationSuccessHandler authSuccessHandler;
+    private final AuthenticationFailureHandler authFailureHandler;
+
+//    @Autowired
+//    public SecurityConfig(AuthenticationSuccessHandler authSuccessHandler, AuthenticationFailureHandler authFailureHandler) {
+//        this.authSuccessHandler = authSuccessHandler;
+//        this.authFailureHandler = authFailureHandler;
+//    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .csrf(AbstractHttpConfigurer::disable)
+//                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/index.html").permitAll()
                         .requestMatchers("/login").permitAll()
@@ -40,8 +52,8 @@ public class SecurityConfig {
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
-                        //.successHandler(authSuccessHandler)
-                        //.failureHandler(authFailureHandler)
+                        .successHandler(authSuccessHandler)
+                        .failureHandler(authFailureHandler)
                 )
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")    // δουλεύει με post logout

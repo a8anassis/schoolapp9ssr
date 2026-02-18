@@ -44,6 +44,9 @@
     <!-- Tomcat Logs -->
     <appender name="TomcatLogs" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/tomcat.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -56,6 +59,9 @@
     <!-- HikariCP Logs -->
     <appender name="HikariLogs" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/hikari.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
         </encoder>

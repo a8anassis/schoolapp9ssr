@@ -36,6 +36,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         if (savedRequest != null) {
 //            response.sendRedirect(savedRequest.getRedirectUrl());   // relative URL
             redirectStrategy.sendRedirect(request, response, savedRequest.getRedirectUrl());
+            return;
         }
 
 //        Set<String> authorities = new HashSet<>();

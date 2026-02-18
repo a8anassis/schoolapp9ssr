@@ -30,7 +30,7 @@ public class Role {
 
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.PROTECTED)
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "roles_capabilities",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "capability_id")

@@ -14,6 +14,7 @@ import gr.aueb.cf.schoolapp.repository.TeacherRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -58,10 +59,13 @@ public class TeacherService implements ITeacherService {
             log.info("Teacher with vat={} saved successfully", dto.vat());
             return mapper.mapToTeacherReadOnlyDTO(teacher);
         } catch (EntityAlreadyExistsException e) {
-            log.error("Save failed for teacher with vat={}. Teacher already exists", dto.vat(), e);     // Structured Logging
+            log.warn("Save failed for teacher with vat={}. Teacher already exists", dto.vat());     // Structured Logging
             throw e;
-        } catch (EntityInvalidArgumentException e) {
-            log.error("Save failed for teacher with vat={}. Region id={} invalid", dto.vat(), dto.regionId());
+        }  catch (DataIntegrityViolationException e) {  // race condition for insert
+            log.warn("Save failed for teacher with vat={}. Teacher exists", dto.vat());     // Structured Logging
+            throw new EntityAlreadyExistsException("Save failed for teacher with vat=" + dto.vat() + ". Teacher already exists");
+        }  catch (EntityInvalidArgumentException e) {
+            log.warn("Save failed for teacher with vat={}. Region id={} invalid", dto.vat(), dto.regionId());
             throw e;
         }
     }
@@ -122,13 +126,13 @@ public class TeacherService implements ITeacherService {
             log.info("Teacher with uuid={} updated successfully", dto.uuid());
             return mapper.mapToTeacherReadOnlyDTO(teacher);
         } catch (EntityNotFoundException e) {
-            log.error("Update failed for teacher with uuid={}. Teacher not found", dto.uuid(), e);
+            log.warn("Update failed for teacher with uuid={}. Teacher not found", dto.uuid());
             throw e;
         } catch (EntityAlreadyExistsException e) {
-            log.error("Update failed for teacher with uuid={}. Teacher with vat={} already exists", dto.uuid(), dto.vat(), e);
+            log.warn("Update failed for teacher with uuid={}. Teacher with vat={} already exists", dto.uuid(), dto.vat());
             throw e;
         } catch (EntityInvalidArgumentException e) {
-            log.error("Update failed for teacher with uuid={}. Region id={} invalid", dto.uuid(), dto.regionId(), e);
+            log.warn("Update failed for teacher with uuid={}. Region id={} invalid", dto.uuid(), dto.regionId());
             throw e;
         }
     }
@@ -147,7 +151,7 @@ public class TeacherService implements ITeacherService {
             log.info("Teacher with uuid={} deleted successfully", uuid);
             return mapper.mapToTeacherReadOnlyDTO(teacher);
         } catch (EntityNotFoundException e) {
-            log.error("Update failed for teacher with uuid={}. Teacher not found", uuid, e);
+            log.warn("Delete failed for teacher uuid={}. Teacher not found", uuid);
 
             // Automatic rollback due to @Transactional annotation
             throw e;
@@ -165,7 +169,7 @@ public class TeacherService implements ITeacherService {
             log.debug("Get teacher by uuid={} returned successfully", uuid);
             return mapper.mapToTeacherEditDTO(teacher);
         } catch (EntityNotFoundException e) {
-            log.error("Get teacher by uuid={} failed", uuid, e);
+            log.warn("Get teacher by uuid={} failed", uuid);
             throw e;
         }
     }
@@ -181,7 +185,7 @@ public class TeacherService implements ITeacherService {
             log.debug("Get non-deleted teacher by uuid={} returned successfully", uuid);
             return mapper.mapToTeacherEditDTO(teacher);
         } catch (EntityNotFoundException e) {
-            log.error("Get teacher by uuid={} failed", uuid, e);
+            log.warn("Get teacher by uuid={} failed", uuid);
             throw e;
         }
     }

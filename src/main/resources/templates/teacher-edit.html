@@ -65,7 +65,6 @@
                         <option th:each="region : ${regionsReadOnlyDTO}"
                                 th:value="${region.id}"
                                 th:text="${region.name}"
-                                th:selected="${region.id == teacherEditDTO.regionId}"
                         >
                         </option>
                     </select>
@@ -87,3 +86,4 @@
 
 </body>
 </html>
+

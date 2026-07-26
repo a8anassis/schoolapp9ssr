@@ -146,13 +146,12 @@ public class TeacherService implements ITeacherService {
                     .orElseThrow(() -> new EntityNotFoundException("Teacher with uuid=" + uuid + " not found"));
 
             teacher.softDelete();
-            // No save needed if Teacher is managed
+//            No save needed if Teacher is managed
 //            teacherRepository.save(teacher);
             log.info("Teacher with uuid={} deleted successfully", uuid);
             return mapper.mapToTeacherReadOnlyDTO(teacher);
         } catch (EntityNotFoundException e) {
             log.warn("Delete failed for teacher uuid={}. Teacher not found", uuid);
-
             // Automatic rollback due to @Transactional annotation
             throw e;
         }
@@ -185,7 +184,7 @@ public class TeacherService implements ITeacherService {
             log.debug("Get non-deleted teacher by uuid={} returned successfully", uuid);
             return mapper.mapToTeacherEditDTO(teacher);
         } catch (EntityNotFoundException e) {
-            log.warn("Get teacher by uuid={} failed", uuid);
+            log.warn("Get a teacher by uuid={} failed", uuid);
             throw e;
         }
     }

@@ -132,13 +132,19 @@ public class TeacherController {
     }
 
     @GetMapping("/update-success")
-    public String updateSuccess() {
+    public String updateSuccess(Model model) {
+        if (!model.containsAttribute("teacherReadOnlyDTO")) {
+            return "redirect:/teachers";
+        }
         return "update-teacher-success";
     }
 
 
     @GetMapping("/success")
     public String teacherSuccess(Model model) {
+        if (!model.containsAttribute("teacherReadOnlyDTO")) {
+            return "redirect:/teachers";
+        }
         return "teacher-success";
     }
 
@@ -157,7 +163,10 @@ public class TeacherController {
     }
 
     @GetMapping("/delete-success")
-    public String deleteSuccess() {
+    public String deleteSuccess(Model model) {
+        if (!model.containsAttribute("teacherReadOnlyDTO")) {
+            return "redirect:/teachers";
+        }
         return "delete-teacher-success";
     }
 

@@ -41,6 +41,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+//	thymeleaf-extras-springsecurity6 για το sec: namespace
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.flywaydb:flyway-mysql'

@@ -24,7 +24,7 @@ public class Capability {
 
     private String description;
 
-    @Getter(AccessLevel.PROTECTED)
+    @Getter(AccessLevel.PACKAGE)
     @Setter(AccessLevel.NONE)
     @ManyToMany(mappedBy = "capabilities", fetch = FetchType.LAZY)
     private Set<Role> roles = new HashSet<>();

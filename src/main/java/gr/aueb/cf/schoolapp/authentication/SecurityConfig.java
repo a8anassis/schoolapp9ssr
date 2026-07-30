@@ -51,7 +51,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/login")
+                        .loginPage("/login")  // now YOU must serve GET /login
                         .successHandler(authSuccessHandler)
                         .failureHandler(authFailureHandler)
                 )

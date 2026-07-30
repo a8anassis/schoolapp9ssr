@@ -29,7 +29,7 @@ public class Role {
     private Set<User> users = new HashSet<>();
 
     @Setter(AccessLevel.NONE)
-    @Getter(AccessLevel.PROTECTED)
+    @Getter(AccessLevel.PACKAGE)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "roles_capabilities",
             joinColumns = @JoinColumn(name = "role_id"),
